@@ -6,7 +6,7 @@ tweepy
 #a) la consumer key (ckey) b) el consumer secret (csecret) 
 #c) el access token (atoken) d) el access secret (asecret)
 #Los valores de dichas variables son dados por twitter en https://dev.twitter.com
-credenciales.py
+credenciales.py*
 
 #Id del último tweet leido
 .historial
