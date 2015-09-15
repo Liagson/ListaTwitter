@@ -51,19 +51,26 @@ def historial(api, usuario):
 	else: 
 		return ultimo_tweet_leido
 
+	def listado_tweets(api, list_usuarios):
+		for id_usuario in list_usuarios:
+			print "Tweets de", id_usuario, "sin leer:",
+			id_historial = historial(api, id_usuario)
+			if (id_historial != -1):
+				public_tweets = api.user_timeline(id = id_usuario, count = 1, since_id = id_historial)
+				print len(public_tweets)
+				for tweet in public_tweets:
+				print tweet.text
+		return		
+		
 auth = OAuthHandler(credenciales.ckey, credenciales.csecret)
 auth.set_access_token(credenciales.atoken, credenciales.asecret)
 
-
-id_usuario = "ID_AA_Carmack"
 api = tweepy.API(auth)
+list_usuarios = ["ID_AA_Carmack", "romero"]
 
-print "Tweets de", id_usuario, "sin leer:",
+listado_tweets(api, list_usuarios)
 
-id_historial = historial(api, id_usuario)
-if (id_historial != -1):
-	public_tweets = api.user_timeline(id = id_usuario, count = 1, since_id = id_historial)
-	print len(public_tweets)
-	for tweet in public_tweets:
-		print tweet.text
+
+
+
 
