@@ -16,16 +16,17 @@ Para ello se deberá probar a instalar estos paquetes:
   * `apt-get install libffi-dev libssl-dev`
   
 ##Credenciales
-Por razones de seguridad, el fichero credenciales.py no ha sido incluido al repositorio por contener las claves privadas.
-Es necesario para poder acceder a la API tener en el mismo directorio que el programa.
+Por razones de seguridad, el fichero *credenciales.py* no ha sido incluido al repositorio por contener las claves privadas.
+Es necesario para poder acceder a la API tener *credenciales.py* en el mismo directorio que el programa.
 Éste deberá de contener las siguentes variables:
 
-a. La consumer key (**ckey**) 
+```python
+#credenciales.py
 
-b. El consumer secret (**csecret**) 
-
-c. El access token (**atoken**) 
-
-d. El access secret (**asecret**)
+ckey = "..." #consumer key 
+csecret = "..." #consumer secret  
+atoken = "..." #access token  
+asecret = "..." #access secret 
+```
 
 Los valores de dichas variables son dados por [twitter](https://dev.twitter.com) y basta con tener cuenta de twitter para poder solicitarlos.
