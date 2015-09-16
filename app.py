@@ -16,7 +16,7 @@ def apertura_fichero():
 	"""
 
 	nombre_fichero = ".historial"
-
+	cond_nuevo = False
 	if os.path.isfile(nombre_fichero):
 		try:
 			fichero_timeline = open(nombre_fichero, "r+")
@@ -26,13 +26,14 @@ def apertura_fichero():
 	else:
 		try:
 			fichero_timeline = open(nombre_fichero, "w")
+			cond_nuevo = True
 		except:
 			print "\nError en creacion de historial"
 			sys.exit(-1)
 	
-	return fichero_timeline
+	return fichero_timeline, cond_nuevo
 
-def procesado_historial(api, usuario, fichero_timeline):
+def procesado_historial(api, usuario, fichero_timeline, cond_nuevo):
 	"""
 	Primero se lee la id del ultimo tweet que fue registrado en el historial
 	La id de este tweet sera devuelta por esta funcion para hacer una busqueda de tweets posteriores
@@ -40,15 +41,15 @@ def procesado_historial(api, usuario, fichero_timeline):
 	"""
 	usuario_coincide = False
 
-	while not usuario_coincide:
+	while not usuario_coincide and not cond_nuevo:
 		linea_fichero_historial = fichero_timeline.readline().split()
-		if (linea_fichero_historial[0] == usuario) or (len(linea_fichero_historial) < 2):
+		if (linea_fichero_historial[0] == usuario):
 			usuario_coincide = True
 
 	public_tweets = api.user_timeline(id = usuario, count = 1)
 	ultimo_tweet = public_tweets[0].id
 
-	if (len(linea_fichero_historial) < 2):
+	if cond_nuevo:
 		ultimo_tweet_leido = ultimo_tweet
 		salida = usuario + " " + str(ultimo_tweet) + "\n"
 	else:
@@ -67,12 +68,12 @@ def escritura_historial(fichero, lista):
 	fichero.close()
 
 def listado_tweets(api, list_usuarios):
-	fichero_timeline = apertura_fichero()
+	fichero_timeline, cond_nuevo = apertura_fichero()
 	v_linea = []
 	for id_usuario in list_usuarios:
 		print "Tweets de", id_usuario, "sin leer:",
 		
-		id_historial, linea = procesado_historial(api, id_usuario, fichero_timeline)
+		id_historial, linea = procesado_historial(api, id_usuario, fichero_timeline, cond_nuevo)
 		v_linea.append(linea)
 		public_tweets = api.user_timeline(id = id_usuario, count = 1, since_id = id_historial)
 		print len(public_tweets)
