@@ -32,19 +32,17 @@ def apertura_fichero():
 	
 	return fichero_timeline
 
-def procesado_historial(api, usuario):
+def procesado_historial(api, usuario, fichero_timeline):
 	"""
 	Primero se lee la id del ultimo tweet que fue registrado en el historial
 	La id de este tweet sera devuelta por esta funcion para hacer una busqueda de tweets posteriores
 	Se sobreescribe por el ultimo tweet leido en el momento de ejecutar este programa
 	"""
-	
-	
 	usuario_coincide = False
 
 	while not usuario_coincide:
 		linea_fichero_historial = fichero_timeline.readline().split()
-		if (linea_fichero_historial0] == usuario) or (len(linea_fichero_historial) < 2):
+		if (linea_fichero_historial[0] == usuario) or (len(linea_fichero_historial) < 2):
 			usuario_coincide = True
 
 	public_tweets = api.user_timeline(id = usuario, count = 1)
@@ -52,23 +50,35 @@ def procesado_historial(api, usuario):
 
 	if (len(linea_fichero_historial) < 2):
 		ultimo_tweet_leido = ultimo_tweet
+		salida = usuario + " " + str(ultimo_tweet) + "\n"
 	else:
 		ultimo_tweet_leido = int(linea_fichero_historial[1])
+		salida = usuario + " " + linea_fichero_historial[1] + "\n"
+		
+	fichero_timeline.seek(0)
+	return ultimo_tweet_leido, salida
 
-	return ultimo_tweet_leido, linea_fichero_historial
+def escritura_historial(fichero, lista):
+	fichero.truncate()
+
+	for linea in lista:
+		fichero.write(linea)
+
+	fichero.close()
 
 def listado_tweets(api, list_usuarios):
 	fichero_timeline = apertura_fichero()
-
+	v_linea = []
 	for id_usuario in list_usuarios:
 		print "Tweets de", id_usuario, "sin leer:",
 		
-		id_historial = procesado_historial(api, id_usuario, fichero_timeline)
-		if (id_historial != -1):
-			public_tweets = api.user_timeline(id = id_usuario, count = 1, since_id = id_historial)
-			print len(public_tweets)
-			for tweet in public_tweets:
-				print tweet.text
+		id_historial, linea = procesado_historial(api, id_usuario, fichero_timeline)
+		v_linea.append(linea)
+		public_tweets = api.user_timeline(id = id_usuario, count = 1, since_id = id_historial)
+		print len(public_tweets)
+		for tweet in public_tweets:
+			print tweet.text
+	escritura_historial(fichero_timeline, v_linea)
 	return		
 
 auth = OAuthHandler(credenciales.ckey, credenciales.csecret)
