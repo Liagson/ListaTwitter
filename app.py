@@ -89,7 +89,7 @@ def listado_tweets(api, list_usuarios):
 		public_tweets = api.user_timeline(id = id_usuario, count = 1, since_id = id_historial)
 		print len(public_tweets)
 		for tweet in public_tweets:
-			print tweet.text
+			print " >", tweet.text
 	escritura_historial(fichero_timeline, v_linea)
 	return		
 
