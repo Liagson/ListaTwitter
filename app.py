@@ -10,6 +10,8 @@ import os.path
 import tweepy, sys
 from tweepy import OAuthHandler
 
+list_usuarios = ["ID_AA_Carmack", "romero"] #Esta es la lista de usuarios a seguir (no son vinculados a tu cuenta de twitter)
+
 def apertura_fichero():
 	"""
 	Abre/Crea un fichero y devuelve el file descriptor
@@ -35,15 +37,20 @@ def apertura_fichero():
 
 def procesado_historial(api, usuario, fichero_timeline, cond_nuevo):
 	"""
-	Primero se lee la id del ultimo tweet que fue registrado en el historial
-	La id de este tweet sera devuelta por esta funcion para hacer una busqueda de tweets posteriores
-	Se sobreescribe por el ultimo tweet leido en el momento de ejecutar este programa
+	En cada linea del historial viene "usuario id_ultimo_tweet_leido"
+	Se busca en el fichero la linea de historial que pertenezca al usuario
+	Se devuelve la id de ese ultimo tweet leido y un string con "usuario ultimo_tweet"
+	Si no se encuentra o el fichero esta vacio, se considera 
+	como ultimo tweet leido al ultimo escrito por el usuario
 	"""
 	usuario_coincide = False
 
 	while not usuario_coincide and not cond_nuevo:
 		linea_fichero_historial = fichero_timeline.readline().split()
 		if (linea_fichero_historial[0] == usuario):
+			usuario_coincide = True
+		if (len(linea_fichero_historial) == 0):
+			cond_nuevo = True
 			usuario_coincide = True
 
 	public_tweets = api.user_timeline(id = usuario, count = 1)
@@ -63,8 +70,11 @@ def escritura_historial(fichero, lista):
 	fichero.truncate()
 
 	for linea in lista:
-		fichero.write(linea)
-
+		try:
+			fichero.write(linea)
+		except:
+			print "\n Error en escritura de historial"
+			sys.exit(-1)
 	fichero.close()
 
 def listado_tweets(api, list_usuarios):
@@ -86,9 +96,6 @@ auth = OAuthHandler(credenciales.ckey, credenciales.csecret)
 auth.set_access_token(credenciales.atoken, credenciales.asecret)
 
 api = tweepy.API(auth)
-
-list_usuarios = ["ID_AA_Carmack", "romero"] #Esta es la lista de usuarios a seguir (no son vinculados a tu cuenta de twitter)
-
 listado_tweets(api, list_usuarios)
 
 
