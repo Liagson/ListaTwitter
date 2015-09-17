@@ -1,13 +1,16 @@
 # ListaTwitter
 
 ##Descripción
-Una manera rápida de seguir los últimos tweets de un usuario desde la terminal de linux
+Una manera rápida de seguir los últimos tweets de un usuario desde la terminal de linux a través de la libreria [tweepy](https://github.com/tweepy/tweepy)
 
 ##Instrucciones
 1. Tener python instalado. En linux suele venir ya instalado.
-2. Instalar la libreria tweep:
+2. Instalar la libreria tweepy:
   * `pip install tweepy`
-3. Ejecutar en la terminal de linux:
+3. Escribir en app.py la ID de los usuarios a seguir:
+  * `list_usuarios = ["ID_AA_Carmack", "romero"]`
+  (Por defecto vienen dos de los creadores de [DOOM](https://github.com/id-Software/DOOM))
+4. Ejecutar en la terminal de linux:
   * `python app.py`
   
 Si aparecen errores se deberá seguramente a un problema de librerias de python.
