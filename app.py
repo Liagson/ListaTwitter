@@ -47,6 +47,7 @@ def procesado_historial(api, usuario, fichero_timeline, cond_nuevo):
 
 	while not usuario_coincide and not cond_nuevo:
 		linea_fichero_historial = fichero_timeline.readline().split()
+		
 		if (len(linea_fichero_historial) == 0):
 			cond_nuevo = True
 			usuario_coincide = True
@@ -69,7 +70,6 @@ def procesado_historial(api, usuario, fichero_timeline, cond_nuevo):
 
 def escritura_historial(fichero, lista):
 	fichero.truncate()
-
 	for linea in lista:
 		try:
 			fichero.write(linea)
@@ -82,12 +82,11 @@ def listado_tweets(api, list_usuarios):
 	fichero_timeline, cond_nuevo = apertura_fichero()
 	v_linea = []
 	for id_usuario in list_usuarios:
-		print "* Tweets de", id_usuario, "sin leer:",
-		
 		id_historial, linea = procesado_historial(api, id_usuario, fichero_timeline, cond_nuevo)
 		v_linea.append(linea)
 		public_tweets = api.user_timeline(id = id_usuario, since_id = id_historial)
-		print len(public_tweets)
+
+		print "* Tweets de", id_usuario, "sin leer:", len(public_tweets)
 		for tweet in public_tweets:
 			print " >", tweet.text
 	escritura_historial(fichero_timeline, v_linea)
