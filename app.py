@@ -71,7 +71,7 @@ def listado_tweets(api, list_usuarios):
 	fichero_timeline, cond_nuevo = apertura_fichero()
 	v_linea = []
 	for id_usuario in list_usuarios:
-		print "Tweets de", id_usuario, "sin leer:",
+		print "* Tweets de", id_usuario, "sin leer:",
 		
 		id_historial, linea = procesado_historial(api, id_usuario, fichero_timeline, cond_nuevo)
 		v_linea.append(linea)
@@ -86,7 +86,8 @@ auth = OAuthHandler(credenciales.ckey, credenciales.csecret)
 auth.set_access_token(credenciales.atoken, credenciales.asecret)
 
 api = tweepy.API(auth)
-list_usuarios = ["ID_AA_Carmack", "romero"]
+
+list_usuarios = ["ID_AA_Carmack", "romero"] #Esta es la lista de usuarios a seguir (no son vinculados a tu cuenta de twitter)
 
 listado_tweets(api, list_usuarios)
 
