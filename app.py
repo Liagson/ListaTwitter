@@ -47,11 +47,12 @@ def procesado_historial(api, usuario, fichero_timeline, cond_nuevo):
 
 	while not usuario_coincide and not cond_nuevo:
 		linea_fichero_historial = fichero_timeline.readline().split()
-		if (linea_fichero_historial[0] == usuario):
-			usuario_coincide = True
 		if (len(linea_fichero_historial) == 0):
 			cond_nuevo = True
 			usuario_coincide = True
+		elif (linea_fichero_historial[0] == usuario):
+			usuario_coincide = True
+		
 
 	public_tweets = api.user_timeline(id = usuario, count = 1)
 	ultimo_tweet = public_tweets[0].id
