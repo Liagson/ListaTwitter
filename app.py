@@ -61,7 +61,7 @@ def procesado_historial(api, usuario, fichero_timeline, cond_nuevo):
 		salida = usuario + " " + str(ultimo_tweet) + "\n"
 	else:
 		ultimo_tweet_leido = int(linea_fichero_historial[1])
-		salida = usuario + " " + linea_fichero_historial[1] + "\n"
+		salida = usuario + " " + str(ultimo_tweet) + "\n"
 		
 	fichero_timeline.seek(0)
 	return ultimo_tweet_leido, salida
