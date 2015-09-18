@@ -97,6 +97,10 @@ def listado_tweets(api, list_usuarios):
 	escritura_historial(fichero_timeline, v_linea)
 	return		
 
+if len(list_usuarios):
+	print "\n Error: lista de usuarios vacia"
+	sys.exit(-1)
+
 auth = OAuthHandler(credenciales.ckey, credenciales.csecret)
 auth.set_access_token(credenciales.atoken, credenciales.asecret)
 
