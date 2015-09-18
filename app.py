@@ -97,7 +97,7 @@ def listado_tweets(api, list_usuarios):
 	escritura_historial(fichero_timeline, v_linea)
 	return		
 
-if len(list_usuarios):
+if (len(list_usuarios) == 0):
 	print "\n Error: lista de usuarios vacia"
 	sys.exit(-1)
 
