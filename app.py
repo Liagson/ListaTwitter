@@ -86,10 +86,16 @@ def listado_tweets(api, list_usuarios):
 		v_linea.append(linea)
 
 		posicion = 0
-		while (public_tweets[posicion].id > id_historial):
+
+		while (public_tweets[posicion].id > id_historial) and (posicion < 19):
 			posicion += 1
 
-		print "** Tweets de", id_usuario, "sin leer:", posicion
+		print "** Tweets de", id_usuario, "sin leer:", 
+
+		if (posicion == 19):
+			print "+20"
+		else:
+			print posicion
 			
 		for tweet in public_tweets[:posicion]:
 			print " >", tweet.text
