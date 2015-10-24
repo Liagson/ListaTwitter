@@ -3,6 +3,8 @@
 ##Descripción
 Una manera rápida de seguir los últimos tweets de un usuario desde la terminal de linux a través de la libreria [tweepy](https://github.com/tweepy/tweepy)
 
+![Captura](http://i.imgur.com/knHT0V7.png?1)
+
 ##Instrucciones
 1. Tener python instalado. En linux suele venir ya instalado.
 2. Instalar la libreria tweepy:
