@@ -1,11 +1,11 @@
 # ListaTwitter
 
-##Descripción
+## Descripción
 Una manera rápida de seguir los últimos tweets de un usuario desde la terminal de linux a través de la libreria [tweepy](https://github.com/tweepy/tweepy)
 
 ![Captura](http://i.imgur.com/knHT0V7.png?1)
 
-##Instrucciones
+## Instrucciones
 1. Tener python instalado. En linux suele venir ya instalado.
 2. Instalar la libreria tweepy:
   * `pip install tweepy`
@@ -20,7 +20,7 @@ Para ello se deberá probar a instalar estos paquetes:
   * `pip install requests[security]`
   * `apt-get install libffi-dev libssl-dev`
   
-##Credenciales
+## Credenciales
 Por razones de seguridad, el fichero *credenciales.py* no ha sido incluido al repositorio por contener las claves privadas.
 Es necesario para poder acceder a la API tener *credenciales.py* en el mismo directorio que el programa.
 Éste deberá de contener las siguentes variables:
